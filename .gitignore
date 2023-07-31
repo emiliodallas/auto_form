@@ -1,3 +1,8 @@
 awscliv2.zip
 .git
 aws
+terraform.tfstate.backup
+.terraform
+id_rsa
+id_rsa.pub
+run_all.sh

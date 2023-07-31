@@ -2,20 +2,23 @@
 
 
 resource "aws_instance" "web_server_az1" {
-  count = 2
-  ami = data.aws_ami.ubuntu.id
-  instance_type = var.instance_type
-  key_name = aws_key_pair.deployer.id
-  vpc_security_group_ids = [aws_security_group.default.id]
-  subnet_id = aws_subnet.web_server_subnet_1.id
+  count                       = 2
+  ami                         = data.aws_ami.ubuntu.id
+  instance_type               = var.instance_type
+  key_name                    = aws_key_pair.deployer.id
+  vpc_security_group_ids      = [aws_security_group.default.id]
+  subnet_id                   = aws_subnet.web_server_subnet_1.id
   associate_public_ip_address = true
+
   provisioner "local-exec" {
     command = "printf '\n${self.public_ip}' >> aws_hosts && sleep 2m"
   }
+
   provisioner "local-exec" {
     when    = destroy
     command = "sed -i '/^[0-9]/d' aws_hosts"
   }
+
   provisioner "remote-exec" {
     inline = [
       "sudo apt-get update",
@@ -27,10 +30,10 @@ resource "aws_instance" "web_server_az1" {
     ]
   }
   connection {
-    host     = self.public_ip
-    type     = "ssh"
-    user     = "ubuntu"
-    password = ""
+    host        = self.public_ip
+    type        = "ssh"
+    user        = "ubuntu"
+    password    = ""
     private_key = file("${path.module}/id_rsa")
   }
 

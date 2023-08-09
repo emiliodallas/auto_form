@@ -7,7 +7,6 @@ variable "ec2_instance_ids" {
     instance2 = "i-0162e61c8f3623983"
     instance3 = "i-034cfd07bf630f802"
     instance4 = "i-003c4ab66d962cb07"
-    # Add more instances here if needed
   }
 }
 
@@ -18,7 +17,7 @@ resource "aws_sns_topic" "ec2-cpuusage-cloudwatch-alarms-topic-sns" {
 resource "aws_sns_topic_subscription" "email_subscription" {
   topic_arn = aws_sns_topic.ec2-cpuusage-cloudwatch-alarms-topic-sns.arn
   protocol  = "email"
-  endpoint  = "emiliodallas55@gmail.com"  # Replace with your email address
+  endpoint  = "emiliodallas55@gmail.com"
 }
 
 resource "aws_cloudwatch_metric_alarm" "ec2-cpuusage-cloudwatch-alarms-topic-sns" {

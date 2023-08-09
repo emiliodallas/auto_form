@@ -22,12 +22,10 @@ resource "aws_instance" "web_server_az1" {
   provisioner "remote-exec" {
     inline = [
       "sudo apt-get update",
-      "sudo apt-get install -y apache2",
+      "sudo apt-get install -y apache2",      
       "sudo systemctl start apache2",
       "sudo systemctl enable apache2",
-      
-
-    ]
+      ]
   }
   connection {
     host        = self.public_ip
@@ -81,6 +79,6 @@ resource "aws_instance" "web_server_az2" {
 
 
 resource "aws_key_pair" "deployer" {
-  key_name   = "blingling"
+  key_name   = "ec2-keypair"
   public_key = file("${path.module}/id_rsa.pub")
 }

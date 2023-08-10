@@ -7,3 +7,6 @@ id_rsa
 id_rsa.pub
 run_all.sh
 .terraform.lock.hcl
+terraform.tfstate
+aws_hosts
+aws_hosts1
